@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxw47rw2oqn6x"]
+
+[ext_resource type="Shader" path="res://Shaders/AccurateCRT.gdshader" id="1_kw1c4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bh2yl"]
+shader = ExtResource("1_kw1c4")
+shader_parameter/screen_width = 1024.0
+shader_parameter/screen_height = 600.0
+shader_parameter/BarrelPower = 1.1
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 3.0
+shader_parameter/bleeding_range_y = 3.0
+shader_parameter/lines_distance = 4.0
+shader_parameter/scan_size = 2.0
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 30.0
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_klnr5"]
+rayleigh_coefficient = 11.5
+rayleigh_color = Color(0.305846, 0.405164, 0.59228, 1)
+mie_eccentricity = 0.95
+mie_color = Color(1, 0.270696, 0.241417, 1)
+turbidity = 37.78
+
+[sub_resource type="Sky" id="Sky_bnjvy"]
+sky_material = SubResource("PhysicalSkyMaterial_klnr5")
+
+[sub_resource type="Environment" id="Environment_ayo1j"]
+background_mode = 1
+background_color = Color(0.496717, 0.118128, 1, 1)
+sky = SubResource("Sky_bnjvy")
+
+[node name="main_menu" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.312153, -0.154416, -0.207603)
+size = Vector3(5.03831, 0.371094, 6.93494)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.00431091, 0, 0.999991, 0.00537554, 0.999986, -2.31737e-05, -0.999976, 0.00537559, 0.00431085, 3.30447, 0.528684, 0)
+fov = 37.4
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_bh2yl")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 46.0
+offset_right = 426.0
+offset_bottom = 103.0
+text = "Play"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ayo1j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.839848, 0.0284822, -0.542073, -0.0223851, 0.995956, 0.0870124, 0.542359, 0.0852116, -0.835814, 0, 0, 0)
+light_color = Color(1, 0.566195, 0.434898, 1)

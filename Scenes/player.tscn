@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://det7uv7xdwvrb"]
+
+[ext_resource type="Texture2D" uid="uid://n2binqm6ty8s" path="res://Art/Sprites/Sprite-0001.png" id="1_oh2dy"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_qd742"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hfp38"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_voxwc"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_qd742")
+walk_speed = 15.0
+slam_fall_mult = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_hfp38")
+
+[node name="WorldModel" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldModel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+layers = 2
+mesh = SubResource("CapsuleMesh_voxwc")
+
+[node name="Sprite3D" type="Sprite3D" parent="WorldModel"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 0)
+layers = 2
+billboard = 2
+shaded = true
+texture_filter = 0
+texture = ExtResource("1_oh2dy")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59674, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+cull_mask = 1048573
+fov = 110.0
