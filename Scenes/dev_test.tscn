@@ -1,22 +1,57 @@
-[gd_scene load_steps=5 format=3 uid="uid://bm3nc3spf0677"]
+[gd_scene load_steps=10 format=3 uid="uid://bm3nc3spf0677"]
 
 [ext_resource type="PackedScene" uid="uid://det7uv7xdwvrb" path="res://Scenes/player.tscn" id="1_jc7e2"]
+[ext_resource type="Texture2D" uid="uid://cggg30ioctwhh" path="res://Art/industrial_sunset_02_puresky_1k.hdr" id="2_r2ecv"]
+[ext_resource type="PackedScene" uid="uid://5i0ywkp58hrk" path="res://Scenes/dev_ghost.tscn" id="3_fruyx"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jxrh5"]
+[sub_resource type="Gradient" id="Gradient_k5ytd"]
+colors = PackedColorArray(0, 0.0319723, 0.101136, 1, 1, 0.89, 0.89, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pc8jm"]
+gradient = SubResource("Gradient_k5ytd")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8hg3n"]
+panorama = ExtResource("2_r2ecv")
+energy_multiplier = 0.03
 
 [sub_resource type="Sky" id="Sky_esgat"]
-sky_material = SubResource("ProceduralSkyMaterial_jxrh5")
+sky_material = SubResource("PanoramaSkyMaterial_8hg3n")
 
 [sub_resource type="Environment" id="Environment_qtmwn"]
 background_mode = 2
 sky = SubResource("Sky_esgat")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 3
+glow_enabled = true
+glow_levels/3 = 0.0
+glow_levels/4 = 6.65
+glow_levels/5 = 3.16
+glow_intensity = 1.95
+glow_strength = 1.15
+glow_bloom = 0.01
+glow_blend_mode = 1
+fog_enabled = true
+fog_light_color = Color(0.117647, 0.121569, 0.141176, 1)
+fog_sun_scatter = 0.12
+fog_density = 0.1045
+fog_sky_affect = 0.068
+volumetric_fog_sky_affect = 0.339
+adjustment_enabled = true
+adjustment_contrast = 1.23
+adjustment_saturation = 0.75
+adjustment_color_correction = SubResource("GradientTexture2D_pc8jm")
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ihfn0"]
+auto_exposure_scale = 0.12
+auto_exposure_speed = 0.01
 
 [node name="DevTest" type="Node3D"]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52427, -0.162354, 6.3488)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.66695, -0.162354, -7.50959)
 use_collision = true
-size = Vector3(39.2286, 0.675293, 45.2621)
+size = Vector3(108.754, 0.675293, 115.674)
 
 [node name="Player" parent="." instance=ExtResource("1_jc7e2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0060482, 0.0147338, 0.0122361)
@@ -35,9 +70,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.78829, 3.23412, 11.4362)
 use_collision = true
 size = Vector3(7.80664, 1.3075, 6.21289)
 
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02048, 6.66361, 25.6577)
+use_collision = true
+size = Vector3(7.80664, 1.3075, 6.21289)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02048, 6.66361, -13.0188)
+use_collision = true
+size = Vector3(7.80664, 1.3075, 6.21289)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qtmwn")
+camera_attributes = SubResource("CameraAttributesPractical_ihfn0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.607584, -0.591867, -0.529656, 0, -0.666858, 0.745185, -0.794255, -0.452762, -0.405172, 0, 0, 0)
+transform = Transform3D(-0.68989, -0.409631, -0.59687, 0.474087, -0.878752, 0.0551137, -0.547077, -0.244946, 0.800443, 0, 0, -0.3454)
+light_color = Color(0.894118, 0.419608, 0.152941, 1)
+light_energy = 0.35
 shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.05246, 4.00055, 3.65963)
+light_color = Color(0.5412, 0.592313, 0.82, 1)
+light_energy = 2.21
+omni_range = 17.565
+omni_attenuation = 0.35
+
+[node name="DevGhost" parent="." instance=ExtResource("3_fruyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)

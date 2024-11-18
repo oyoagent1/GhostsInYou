@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://det7uv7xdwvrb"]
+[gd_scene load_steps=8 format=3 uid="uid://det7uv7xdwvrb"]
 
-[ext_resource type="Texture2D" uid="uid://n2binqm6ty8s" path="res://Art/Sprites/Sprite-0001.png" id="1_oh2dy"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_qd742"]
+[ext_resource type="Texture2D" uid="uid://dujcy1osnv57e" path="res://Art/Sprites/Player.png" id="2_o8wel"]
+[ext_resource type="Script" path="res://Scripts/hands.gd" id="3_21x4l"]
+[ext_resource type="PackedScene" uid="uid://bep46h1q1d86m" path="res://Scenes/dev_shotgun.tscn" id="4_miwna"]
+[ext_resource type="Texture2D" uid="uid://ba0a6ep05yknk" path="res://Art/Sprites/flashlight.png" id="5_45j5t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hfp38"]
 
@@ -11,6 +14,9 @@
 script = ExtResource("1_qd742")
 walk_speed = 15.0
 slam_fall_mult = 17
+camera_rotation_amount = 0.3
+sway_l = Vector3(0, 0, -60)
+sway_r = Vector3(0, 0, 60)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -30,7 +36,7 @@ layers = 2
 billboard = 2
 shaded = true
 texture_filter = 0
-texture = ExtResource("1_oh2dy")
+texture = ExtResource("2_o8wel")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59674, 0)
@@ -38,3 +44,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59674, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 cull_mask = 1048573
 fov = 110.0
+near = 0.001
+
+[node name="Hands" type="Node3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.065, -0.09)
+script = ExtResource("3_21x4l")
+weapons = [null]
+
+[node name="shotgun" parent="Head/Camera3D/Hands" node_paths=PackedStringArray("camera") instance=ExtResource("4_miwna")]
+range = 100.0
+camera = NodePath("../..")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D/Hands/shotgun"]
+transform = Transform3D(13.3333, 0, 0, 0, 13.0716, -3.71286, 0, 2.80756, 24.7031, 0, -2.84729, -0.278291)
+light_color = Color(1, 0.912872, 0.881027, 1)
+light_projector = ExtResource("5_45j5t")
+shadow_enabled = true
+spot_range = 28.6075
+spot_attenuation = 0.07
+spot_angle = 33.75
+spot_angle_attenuation = 0.0583145

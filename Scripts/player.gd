@@ -8,6 +8,7 @@ var headbob_time: float = 0.0
 var slide_y_scale: float = 0.5
 var sliding = false
 var slamming = false
+var hands: Node3D
 
 #export vars
 @export var look_sense: float = 0.01
@@ -20,6 +21,12 @@ var slamming = false
 @export var slide_velocity: float = 30
 @export var slide_jump_mult = 1.5
 @export var slam_fall_mult = 2
+@export var camera_rotation_amount: float
+@export var sway_lerp: float = 5
+@export var sway_l: Vector3
+@export var sway_r: Vector3
+@export var sway_n: Vector3
+@export var camera: Camera3D
 #consts
 const HEADBOB_AMOUNT = 0.12
 const HEADBOB_FREQUENCY = 0.8
@@ -28,6 +35,8 @@ const HEADBOB_FREQUENCY = 0.8
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	head = $Head
+	hands = $Head/Camera3D/Hands
+	camera = $Head/Camera3D
 
 func _unhandled_input(event: InputEvent) -> void:
 	#mouse look
@@ -36,6 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		head.rotate_x(-event.relative.y * look_sense)
 		#clamp head rotation
 		head.rotation.x = deg_to_rad(clampf(rad_to_deg(head.rotation.x), -90, 90))
+
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -66,7 +76,10 @@ func _physics_process(delta: float) -> void:
 			_handle_ground_physics(delta)
 	else:
 		_handle_air_physics(delta)
-
+	if Input.is_action_just_pressed("dash"):
+		pass
+	_cam_tilt(move_input.x, delta)
+	_weapon_tilt(move_input.x, delta)
 	move_and_slide()
 
 func _handle_ground_physics(delta):
@@ -96,8 +109,14 @@ func _handle_slide_physics(delta):
 	velocity.z = slide_dir.z * slide_velocity
 	velocity.x = slide_dir.x * slide_velocity
 
-func dash():
-	pass
+func _cam_tilt(input_x, delta):
+	camera.rotation.z = lerp(camera.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
+
+func _weapon_tilt(input_x, delta):
+	hands.rotation.y = lerp(hands.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
+	hands.rotation.z = lerp(hands.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
+
+
 
 func _headbob_effect(delta):
 	headbob_time += delta * self.velocity.length()

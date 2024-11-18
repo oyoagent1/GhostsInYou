@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://dirctj0gm3aqh"]
+
+[ext_resource type="PackedScene" uid="uid://c4n2odsx5ay5b" path="res://model/sword.fbx" id="1_n7it3"]
+
+[sub_resource type="Animation" id="Animation_n2dm4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.46433, 0.148353)]
+}
+
+[sub_resource type="Animation" id="Animation_ihd1i"]
+resource_name = "Swing"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0285901, 0.137137, 0.287304),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.46433, 0.148353), Vector3(0, 1.78373, -0.462512), Vector3(0, -1.08385, 0.148353), Vector3(0, 1.46433, 0.148353)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1r42g"]
+_data = {
+"RESET": SubResource("Animation_n2dm4"),
+"Swing": SubResource("Animation_ihd1i")
+}
+
+[node name="SwordVm" type="Node3D"]
+
+[node name="sword" parent="." instance=ExtResource("1_n7it3")]
+transform = Transform3D(0.105098, -0.015707, 0.994338, 0.147809, 0.989016, 0, -0.983416, 0.146972, 0.106265, 0.585, -0.425, -0.32)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../sword")
+libraries = {
+"": SubResource("AnimationLibrary_1r42g")
+}
+autoplay = "Swing"

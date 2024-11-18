@@ -27,8 +27,9 @@ sky_material = SubResource("PhysicalSkyMaterial_klnr5")
 
 [sub_resource type="Environment" id="Environment_ayo1j"]
 background_mode = 1
-background_color = Color(0.496717, 0.118128, 1, 1)
+background_color = Color(0, 0.0764346, 0.127321, 1)
 sky = SubResource("Sky_bnjvy")
+tonemap_mode = 3
 
 [node name="main_menu" type="Node3D"]
 
@@ -69,4 +70,5 @@ environment = SubResource("Environment_ayo1j")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.839848, 0.0284822, -0.542073, -0.0223851, 0.995956, 0.0870124, 0.542359, 0.0852116, -0.835814, 0, 0, 0)
-light_color = Color(1, 0.566195, 0.434898, 1)
+light_color = Color(1.01075e-06, 0.406961, 0.546301, 1)
+light_energy = 0.13
