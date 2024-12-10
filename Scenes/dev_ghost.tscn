@@ -1,24 +1,57 @@
-[gd_scene load_steps=4 format=3 uid="uid://5i0ywkp58hrk"]
+[gd_scene load_steps=8 format=3 uid="uid://5i0ywkp58hrk"]
 
 [ext_resource type="PackedScene" uid="uid://ct4yilobml57s" path="res://Scenes/Components/simple_damageable.tscn" id="1_183my"]
+[ext_resource type="Script" path="res://Scripts/dev_ghost_ai.gd" id="1_o8x0x"]
 [ext_resource type="Texture2D" uid="uid://cojbemvydo1vw" path="res://Art/Sprites/Spooky-Ghost-1-Sheet.png" id="2_s7vld"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cojn2"]
+atlas = ExtResource("2_s7vld")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q70c1"]
+atlas = ExtResource("2_s7vld")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m0em"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cojn2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q70c1")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 2.0
+}]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m0jit"]
 
-[node name="DevGhost" type="CharacterBody3D"]
+[node name="DevGhost" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_o8x0x")
+nav_agent = NodePath("NavigationAgent3D")
+min_distance_to_target = 2.0
+speed = 4.56
 
 [node name="SimpleDamageable" parent="." node_paths=PackedStringArray("kill_node") instance=ExtResource("1_183my")]
 kill_node = NodePath("..")
 health = 100.0
 max_health = 100.0
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(2.81669, 0, 0, 0, 2.81669, 0, 0, 0, 2.81669, 0, 1, 0)
 billboard = 2
 texture_filter = 0
-texture = ExtResource("2_s7vld")
-hframes = 2
+sprite_frames = SubResource("SpriteFrames_0m0em")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.450766
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_m0jit")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true

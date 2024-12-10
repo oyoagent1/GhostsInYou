@@ -113,9 +113,8 @@ func _cam_tilt(input_x, delta):
 	camera.rotation.z = lerp(camera.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
 
 func _weapon_tilt(input_x, delta):
-	hands.rotation.y = lerp(hands.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
-	hands.rotation.z = lerp(hands.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
-
+	hands.rotation.y = lerp(hands.rotation.z, -input_x * camera_rotation_amount * 0.3, 10 * delta)
+	hands.rotation.z = lerp(hands.rotation.z, -input_x * camera_rotation_amount * 0.3, 10 * delta)
 
 
 func _headbob_effect(delta):

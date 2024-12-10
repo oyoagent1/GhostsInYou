@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ct4yilobml57s"]
+[gd_scene load_steps=3 format=3 uid="uid://ct4yilobml57s"]
 
 [ext_resource type="Script" path="res://Scripts/damageable.gd" id="1_uurvd"]
+[ext_resource type="Texture2D" uid="uid://bf63iy0h6ucnm" path="res://Art/Sprites/health.png" id="2_dtj35"]
 
-[node name="SimpleDamageable" type="Node3D"]
+[node name="SimpleDamageable" type="Node3D" node_paths=PackedStringArray("health_bar")]
 script = ExtResource("1_uurvd")
+health_bar = NodePath("Sprite3D2")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90687, 0)
+billboard = 2
+texture = ExtResource("2_dtj35")

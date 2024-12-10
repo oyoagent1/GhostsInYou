@@ -125,6 +125,9 @@ _data = {
 [node name="shotgun" groups=["Weapon_Viewmodel"] instance=ExtResource("1_vm5aw")]
 transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.04, 0, 0, 0)
 script = ExtResource("2_yifri")
+range = 100.0
+damage = 10.0
+firerate = 0.2
 
 [node name="MuzzleFlash" type="Sprite3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.90458)

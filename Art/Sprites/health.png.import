@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d058vukqsqoi0"
-path.s3tc="res://.godot/imported/eyes.png-91757746180372a73acc4e16719a6eb5.s3tc.ctex"
+uid="uid://bf63iy0h6ucnm"
+path.s3tc="res://.godot/imported/health.png-eacb1a5ff1dc791d4f53ecc993204143.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Art/Sprites/eyes.png"
-dest_files=["res://.godot/imported/eyes.png-91757746180372a73acc4e16719a6eb5.s3tc.ctex"]
+source_file="res://Art/Sprites/health.png"
+dest_files=["res://.godot/imported/health.png-eacb1a5ff1dc791d4f53ecc993204143.s3tc.ctex"]
 
 [params]
 
