@@ -2,6 +2,8 @@ extends Node
 
 
 @export var weapons: Array
+# How long the swap key should be held before opening the weapon wheel instead
+@export var swap_action_hold_time: float 
 var active_weapon: int = 0
 var weapon_swap: int = 0
 # Called when the node enters the scene tree for the first time.
@@ -25,3 +27,5 @@ func switch_weapons(index:int):
 	print(weapon_swap)
 	print(active_weapon)
 
+func open_weapon_wheel():
+	pass

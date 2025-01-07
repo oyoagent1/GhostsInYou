@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://det7uv7xdwvrb"]
+[gd_scene load_steps=16 format=3 uid="uid://det7uv7xdwvrb"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_qd742"]
 [ext_resource type="Texture2D" uid="uid://dujcy1osnv57e" path="res://Art/Sprites/Player.png" id="2_o8wel"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bep46h1q1d86m" path="res://Scenes/dev_shotgun.tscn" id="4_miwna"]
 [ext_resource type="Texture2D" uid="uid://ba0a6ep05yknk" path="res://Art/Sprites/flashlight.png" id="5_45j5t"]
 [ext_resource type="Texture2D" uid="uid://cidx0w1xlpot8" path="res://Art/Sprites/projectile.png" id="7_nksvj"]
+[ext_resource type="Script" path="res://Scripts/weapon_wheel.gd" id="8_413ao"]
 [ext_resource type="Texture2D" uid="uid://uu04e6lhyu24" path="res://Art/Sprites/weapon_wheel_test_ui-Sheet.png" id="8_ffpsk"]
+[ext_resource type="Texture2D" uid="uid://bf63iy0h6ucnm" path="res://Art/Sprites/health.png" id="10_v7qbd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hfp38"]
 
@@ -110,16 +112,39 @@ grow_vertical = 2
 texture = ExtResource("7_nksvj")
 
 [node name="WeaponWheel" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_413ao")
+icons = ["res://Art/Sprites/sword_icon.png", "res://Art/Sprites/Shotgun_icon.png"]
 
 [node name="Sprite1" type="AnimatedSprite2D" parent="CanvasLayer/WeaponWheel"]
-position = Vector2(960, 448)
+visible = false
+position = Vector2(20, 104)
 sprite_frames = SubResource("SpriteFrames_8euuk")
 
 [node name="Sprite2" type="AnimatedSprite2D" parent="CanvasLayer/WeaponWheel"]
-position = Vector2(960, 624)
+visible = false
+position = Vector2(20, -64)
 sprite_frames = SubResource("SpriteFrames_8euuk")
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/WeaponWheel"]
+
+[node name="Control" type="Control" parent="CanvasLayer/WeaponWheel/Node2D"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Health" type="Sprite2D" parent="CanvasLayer/WeaponWheel/Node2D/Control"]
+position = Vector2(0, -188)
+texture = ExtResource("10_v7qbd")

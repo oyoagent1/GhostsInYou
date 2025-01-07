@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://pur1pd6tu3qr"]
+
+[ext_resource type="Texture2D" uid="uid://dgl4teyhcdwql" path="res://Art/Sprites/Shotgun_icon.png" id="1_b16kc"]
+
+[node name="WeaponWheelSprite" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -184)
+texture = ExtResource("1_b16kc")
