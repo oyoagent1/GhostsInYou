@@ -16,7 +16,7 @@ func shoot():
 	var direct_state = get_world_3d().direct_space_state
 	var params: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(camera.global_position,  camera.global_position - camera.global_transform.basis.z * 100)
 	var collision = direct_state.intersect_ray(params)
-	if collision && collision["collider"].get_child(0):
+	if collision && collision["collider"].get_child_count() > 0:
 		print(collision["collider"].position)
 		if collision["collider"].get_child(0).has_method("change_health"):
 			collision["collider"].get_child(0).change_health(-damage) 

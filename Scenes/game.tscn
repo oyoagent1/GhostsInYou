@@ -4,3 +4,4 @@
 
 [node name="Game" type="Node"]
 script = ExtResource("1_4nh4g")
+main_menu_path = "res://Scenes/main_menu.tscn"

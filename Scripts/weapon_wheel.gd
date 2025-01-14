@@ -2,6 +2,8 @@ extends Node
 
 @onready var divider = preload("res://Scenes/weapon_wheel_divider.tscn")
 @onready var icon = preload("res://Scenes/weapon_wheel_sprite.tscn")
+@export var hands: Node3D
+signal selectweapon(index)
 var default_icon = "res://Art/Sprites/health.png"
 var mouse_input: Vector2
 @export var num_slices: int = 5
@@ -42,25 +44,29 @@ func _ready() -> void:
 	
 func _input(event):
 	if event is InputEventMouseMotion:
-		mouse_input = event.velocity	
+		mouse_input = event.velocity
+
+func close():
+	hands.switch_weapons(get_slected_slice())
 
 # Called every frame. 'delta' is the el2apsed time since the previous frame.
 func _process(delta: float) -> void:
-	selector.rotate((mouse_input.x) * delta * 0.01)
+	selector.rotate((mouse_input.x) * delta * 0.2)
 	var selector_rotation = rad_to_deg(selector.rotation)
 	if selector_rotation > 360:
 		selector.rotation = deg_to_rad(0)
 	elif selector_rotation < 0:
 		selector.rotation = deg_to_rad(359)
 	mouse_input = Vector2.ZERO
-	get_slected_slice()
+	#get_slected_slice()
 
-func get_slected_slice():
+func get_slected_slice() -> int:
 	var selector_rotation = rad_to_deg(selector.rotation)
 	var i = 0
 	while i+1 <= slices.size():
 		if selector_rotation > slices[i].x && selector_rotation < slices[i].y:
 			print(i)
 			print(selector_rotation)
-			return
+			return i
 		i += 1 
+	return -1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://det7uv7xdwvrb"]
+[gd_scene load_steps=19 format=3 uid="uid://det7uv7xdwvrb"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_qd742"]
 [ext_resource type="Texture2D" uid="uid://dujcy1osnv57e" path="res://Art/Sprites/Player.png" id="2_o8wel"]
@@ -6,10 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dirctj0gm3aqh" path="res://Scenes/sword_vm.tscn" id="4_j61nf"]
 [ext_resource type="PackedScene" uid="uid://bep46h1q1d86m" path="res://Scenes/dev_shotgun.tscn" id="4_miwna"]
 [ext_resource type="Texture2D" uid="uid://ba0a6ep05yknk" path="res://Art/Sprites/flashlight.png" id="5_45j5t"]
+[ext_resource type="Texture2D" uid="uid://c3tt8nn3dwb0r" path="res://Art/Sprites/O R B.png" id="7_fyufd"]
 [ext_resource type="Texture2D" uid="uid://cidx0w1xlpot8" path="res://Art/Sprites/projectile.png" id="7_nksvj"]
 [ext_resource type="Script" path="res://Scripts/weapon_wheel.gd" id="8_413ao"]
 [ext_resource type="Texture2D" uid="uid://uu04e6lhyu24" path="res://Art/Sprites/weapon_wheel_test_ui-Sheet.png" id="8_ffpsk"]
 [ext_resource type="Texture2D" uid="uid://bf63iy0h6ucnm" path="res://Art/Sprites/health.png" id="10_v7qbd"]
+[ext_resource type="Shader" path="res://Shaders/AccurateCRT.gdshader" id="11_5rdlm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hfp38"]
 
@@ -36,6 +38,19 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ng1ii"]
+shader = ExtResource("11_5rdlm")
+shader_parameter/screen_width = 1024.0
+shader_parameter/screen_height = 600.0
+shader_parameter/BarrelPower = 1.1
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 3.0
+shader_parameter/bleeding_range_y = 3.0
+shader_parameter/lines_distance = 4.0
+shader_parameter/scan_size = 2.0
+shader_parameter/scanline_alpha = 0.9
+shader_parameter/lines_velocity = 30.0
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera") groups=["Player"]]
 script = ExtResource("1_qd742")
@@ -74,9 +89,11 @@ cull_mask = 1048573
 fov = 110.0
 near = 0.001
 
-[node name="Hands" type="Node3D" parent="Head/Camera3D"]
+[node name="Hands" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("weapon_wheel", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.065, -0.09)
 script = ExtResource("3_21x4l")
+weapon_wheel = NodePath("../../../CanvasLayer/WeaponWheel")
+player = NodePath("../../..")
 
 [node name="SwordVm" parent="Head/Camera3D/Hands" instance=ExtResource("4_j61nf")]
 visible = false
@@ -95,6 +112,19 @@ spot_attenuation = 0.07
 spot_angle = 33.75
 spot_angle_attenuation = 0.0583145
 
+[node name="Sprite3D" type="Sprite3D" parent="Head/Camera3D/Hands"]
+transform = Transform3D(0.130658, 0, 0.183176, 0, 0.225, 0, -0.183176, 0, 0.130658, 0.105, 0.03, 0.005)
+visible = false
+axis = 0
+texture_filter = 0
+texture = ExtResource("7_fyufd")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D/Hands/Sprite3D"]
+light_color = Color(1, 0.578823, 0.275662, 1)
+light_energy = 0.379
+light_size = 0.12
+light_specular = 0.0
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
@@ -111,7 +141,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_nksvj")
 
-[node name="WeaponWheel" type="Control" parent="CanvasLayer"]
+[node name="WeaponWheel" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hands")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -121,6 +151,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_413ao")
+hands = NodePath("../../Head/Camera3D/Hands")
 icons = ["res://Art/Sprites/sword_icon.png", "res://Art/Sprites/Shotgun_icon.png"]
 
 [node name="Sprite1" type="AnimatedSprite2D" parent="CanvasLayer/WeaponWheel"]
@@ -148,3 +179,12 @@ grow_vertical = 2
 [node name="Health" type="Sprite2D" parent="CanvasLayer/WeaponWheel/Node2D/Control"]
 position = Vector2(0, -188)
 texture = ExtResource("10_v7qbd")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ng1ii")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxw47rw2oqn6x"]
+[gd_scene load_steps=8 format=3 uid="uid://bxw47rw2oqn6x"]
 
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_cl35e"]
 [ext_resource type="Shader" path="res://Shaders/AccurateCRT.gdshader" id="1_kw1c4"]
+[ext_resource type="Texture2D" uid="uid://b060irxmrj8ys" path="res://Art/Sprites/Sprite-0002.png" id="3_oqyke"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bh2yl"]
 shader = ExtResource("1_kw1c4")
@@ -32,6 +34,8 @@ sky = SubResource("Sky_bnjvy")
 tonemap_mode = 3
 
 [node name="main_menu" type="Node3D"]
+script = ExtResource("1_cl35e")
+play_path = "res://Scenes/dev_test.tscn"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.312153, -0.154416, -0.207603)
@@ -59,16 +63,27 @@ offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 47.0
-offset_top = 46.0
-offset_right = 426.0
-offset_bottom = 103.0
+offset_left = 308.0
+offset_top = 222.0
+offset_right = 687.0
+offset_bottom = 279.0
 text = "Play"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ayo1j")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.839848, 0.0284822, -0.542073, -0.0223851, 0.995956, 0.0870124, 0.542359, 0.0852116, -0.835814, 0, 0, 0)
+transform = Transform3D(-0.839848, 0.0284822, -0.542073, -0.0223851, 0.995956, 0.0870124, 0.542359, 0.0852116, -0.835814, 0, -0.00922447, 0)
 light_color = Color(1.01075e-06, 0.406961, 0.546301, 1)
 light_energy = 0.13
+
+[node name="SpotLight3D" type="SpotLight3D" parent="DirectionalLight3D"]
+transform = Transform3D(0.853376, 0.456797, 0.25117, -0.480603, 0.50279, 0.718486, 0.201916, -0.733852, 0.648607, -0.022376, 0.99555, 0.086977)
+light_color = Color(1, 0.366667, 0, 1)
+
+[node name="Sprite-0002" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(10, 10)
+texture = ExtResource("3_oqyke")
+
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]

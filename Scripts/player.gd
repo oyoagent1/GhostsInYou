@@ -9,6 +9,7 @@ var slide_y_scale: float = 0.5
 var sliding = false
 var slamming = false
 var hands: Node3D
+var can_move: bool = true
 
 #export vars
 @export var look_sense: float = 0.01
@@ -40,7 +41,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	#mouse look
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && can_move:
 		rotate_y(-event.relative.x * look_sense)
 		head.rotate_x(-event.relative.y * look_sense)
 		#clamp head rotation
@@ -53,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	move_input = Input.get_vector("left", "right", "up", "down").normalized()
 	input_dir = self.transform.basis * Vector3(move_input.x, 0.0, move_input.y)
 
-	if is_on_floor():
+	if is_on_floor() && can_move:
 		if slamming:
 			slamming = false
 		if Input.is_action_just_pressed("slide"):
