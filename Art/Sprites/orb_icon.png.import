@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b060irxmrj8ys"
-path="res://.godot/imported/Sprite-0002.png-34b0f3cd3236496881941506bfe03973.ctex"
+uid="uid://bu4m14ghgxmq"
+path.s3tc="res://.godot/imported/orb_icon.png-78b2913fb609b2c60cea95463951f417.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://Art/Sprites/Sprite-0002.png"
-dest_files=["res://.godot/imported/Sprite-0002.png-34b0f3cd3236496881941506bfe03973.ctex"]
+source_file="res://Art/Sprites/orb_icon.png"
+dest_files=["res://.godot/imported/orb_icon.png-78b2913fb609b2c60cea95463951f417.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

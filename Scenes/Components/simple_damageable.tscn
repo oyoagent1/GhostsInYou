@@ -9,5 +9,6 @@ health_bar = NodePath("Sprite3D2")
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90687, 0)
+modulate = Color(1, 1, 1, 0)
 billboard = 2
 texture = ExtResource("2_dtj35")

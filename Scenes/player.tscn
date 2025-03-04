@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dirctj0gm3aqh" path="res://Scenes/sword_vm.tscn" id="4_j61nf"]
 [ext_resource type="PackedScene" uid="uid://bep46h1q1d86m" path="res://Scenes/dev_shotgun.tscn" id="4_miwna"]
 [ext_resource type="Texture2D" uid="uid://ba0a6ep05yknk" path="res://Art/Sprites/flashlight.png" id="5_45j5t"]
-[ext_resource type="Texture2D" uid="uid://c3tt8nn3dwb0r" path="res://Art/Sprites/O R B.png" id="7_fyufd"]
+[ext_resource type="PackedScene" uid="uid://c6txeiiu1vseg" path="res://Scenes/orb_weapon.tscn" id="7_84mcc"]
 [ext_resource type="Texture2D" uid="uid://cidx0w1xlpot8" path="res://Art/Sprites/projectile.png" id="7_nksvj"]
 [ext_resource type="Script" path="res://Scripts/weapon_wheel.gd" id="8_413ao"]
 [ext_resource type="Texture2D" uid="uid://uu04e6lhyu24" path="res://Art/Sprites/weapon_wheel_test_ui-Sheet.png" id="8_ffpsk"]
@@ -100,7 +100,6 @@ visible = false
 
 [node name="shotgun" parent="Head/Camera3D/Hands" node_paths=PackedStringArray("camera") instance=ExtResource("4_miwna")]
 camera = NodePath("../..")
-damage = 5.0
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D/Hands/shotgun"]
 transform = Transform3D(1, 0, 0, 0, 0.977703, -0.209994, 0, 0.209994, 0.977703, 0, -2.84729, -0.278291)
@@ -112,18 +111,8 @@ spot_attenuation = 0.07
 spot_angle = 33.75
 spot_angle_attenuation = 0.0583145
 
-[node name="Sprite3D" type="Sprite3D" parent="Head/Camera3D/Hands"]
-transform = Transform3D(0.130658, 0, 0.183176, 0, 0.225, 0, -0.183176, 0, 0.130658, 0.105, 0.03, 0.005)
+[node name="OrbWeapon" parent="Head/Camera3D/Hands" instance=ExtResource("7_84mcc")]
 visible = false
-axis = 0
-texture_filter = 0
-texture = ExtResource("7_fyufd")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera3D/Hands/Sprite3D"]
-light_color = Color(1, 0.578823, 0.275662, 1)
-light_energy = 0.379
-light_size = 0.12
-light_specular = 0.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -181,6 +170,7 @@ position = Vector2(0, -188)
 texture = ExtResource("10_v7qbd")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
 material = SubResource("ShaderMaterial_ng1ii")
 anchors_preset = 15
 anchor_right = 1.0

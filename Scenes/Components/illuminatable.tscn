@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwgvwfonnnw2u"]
+
+[ext_resource type="Script" path="res://Scripts/illuminatable.gd" id="1_q8tpe"]
+
+[node name="Illuminatable" type="Node3D" node_paths=PackedStringArray("flash_timer")]
+script = ExtResource("1_q8tpe")
+flash_timer = NodePath("Timer")
+light_brightness = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

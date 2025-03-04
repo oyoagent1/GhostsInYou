@@ -20,6 +20,7 @@ func shoot():
 		print(collision["collider"].position)
 		if collision["collider"].get_child(0).has_method("change_health"):
 			collision["collider"].get_child(0).change_health(-damage) 
+			get_tree().root.get_node("Game").emit_signal("all_flash")
 	cooldown = firerate
 
 func _process(delta: float) -> void:

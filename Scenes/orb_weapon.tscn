@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6txeiiu1vseg"]
+
+[ext_resource type="Texture2D" uid="uid://c3tt8nn3dwb0r" path="res://Art/Sprites/O R B.png" id="1_548af"]
+
+[node name="OrbWeapon" type="Node3D"]
+
+[node name="Orb_placeholder" type="Sprite3D" parent="."]
+transform = Transform3D(0.130658, 0, 0.183176, 0, 0.225, 0, -0.183176, 0, 0.130658, 0.105, 0.03, 0.005)
+axis = 0
+texture_filter = 0
+texture = ExtResource("1_548af")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Orb_placeholder"]
+light_color = Color(1, 0.578823, 0.275662, 1)
+light_energy = 0.379
+light_size = 0.12
+light_specular = 0.0

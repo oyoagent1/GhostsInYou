@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bm3nc3spf0677"]
+[gd_scene load_steps=13 format=3 uid="uid://bm3nc3spf0677"]
 
 [ext_resource type="PackedScene" uid="uid://det7uv7xdwvrb" path="res://Scenes/player.tscn" id="1_jc7e2"]
 [ext_resource type="Texture2D" uid="uid://cggg30ioctwhh" path="res://Art/industrial_sunset_02_puresky_1k.hdr" id="2_r2ecv"]
 [ext_resource type="Texture2D" uid="uid://b1ijk8y4kiofo" path="res://Art/hdri-scenic-sunset-sky-ocean_360032-2501-348945540.jpg" id="3_674sh"]
 [ext_resource type="PackedScene" uid="uid://5i0ywkp58hrk" path="res://Scenes/dev_ghost.tscn" id="3_fruyx"]
+[ext_resource type="PackedScene" uid="uid://bw2wro7ohefm4" path="res://Scenes/glowy_ball.tscn" id="5_egpfc"]
 
 [sub_resource type="Gradient" id="Gradient_k5ytd"]
 colors = PackedColorArray(0, 0.0319723, 0.101136, 1, 1, 0.89, 0.89, 1)
@@ -113,3 +114,9 @@ size = Vector3(7.80664, 1.3075, 6.21289)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02048, 2.67069, -13.0188)
 use_collision = true
 size = Vector3(7.80664, 1.3075, 6.21289)
+
+[node name="GlowyBall" parent="." instance=ExtResource("5_egpfc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2518, 0.175296, -3.73069)
+
+[node name="GlowyBall2" parent="." instance=ExtResource("5_egpfc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1302, 0.175296, 5.78244)
